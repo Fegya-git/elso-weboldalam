@@ -1,33 +1,225 @@
-
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Az első weboldalam</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #edf3ff;
-            text-align: center;
-            padding: 60px 20px;
-        }
-        h1 { color: #2457c5; }
-        button {
-            background: #2457c5;
-            color: white;
-            padding: 14px 25px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Digitális kultúra – 9. évfolyam tananyagok, feladatok és letöltések." />
+  <title>Digitális kultúra | 9. évfolyam</title>
+  <link rel="stylesheet" href="stilus.css" />
 </head>
 <body>
-    <h1>Üdvözöllek a weboldalamon!</h1>
-    <p>Ezt az oldalt GitHubon készítettem.</p>
-    <button onclick="alert('Sikerült!')">
-        Kattints ide!
-    </button>
+  <div class="bg-grid"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Kezdőlap">
+      <span class="brand-mark">&lt;/&gt;</span>
+      <span>
+        <strong>Digitális kultúra</strong>
+        <small>9. évfolyam</small>
+      </span>
+    </a>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Menü megnyitása">☰</button>
+
+    <nav id="mainNav">
+      <a href="#tananyagok">Tananyagok</a>
+      <a href="#feladatok">Feladatok</a>
+      <a href="#letoltesek">Letöltések</a>
+      <a href="#linkek">Hasznos linkek</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">DIGITÁLIS TANANYAGTÁR</div>
+        <h1>Digitális kultúra<br><span>9. évfolyam</span></h1>
+        <p>
+          Tananyagok, gyakorlófeladatok és letölthető fájlok egy helyen.
+          Haladj témakörönként, gyakorolj, és térj vissza bármikor.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="#tananyagok">Tananyagok megnyitása</a>
+          <a class="btn ghost" href="#feladatok">Gyakorlás</a>
+        </div>
+
+        <div class="stats">
+          <div><strong>9.</strong><span>évfolyam</span></div>
+          <div><strong>7</strong><span>témakör</span></div>
+          <div><strong>24/7</strong><span>elérhető</span></div>
+        </div>
+      </div>
+
+      <div class="hero-panel" aria-hidden="true">
+        <div class="terminal">
+          <div class="terminal-head">
+            <span></span><span></span><span></span>
+            <em>tananyag@kiss-tar</em>
+          </div>
+          <div class="terminal-body">
+            <p><span class="prompt">$</span> start digitalis-kultura</p>
+            <p class="muted">Betöltés...</p>
+            <p><span class="ok">✓</span> Szövegszerkesztés</p>
+            <p><span class="ok">✓</span> Táblázatkezelés</p>
+            <p><span class="ok">✓</span> Prezentációkészítés</p>
+            <p><span class="ok">✓</span> Digitális biztonság</p>
+            <p><span class="cursor">█</span></p>
+          </div>
+        </div>
+
+        <div class="chip chip-a">HTML</div>
+        <div class="chip chip-b">AI</div>
+        <div class="chip chip-c">Excel</div>
+      </div>
+    </section>
+
+    <section class="section" id="tananyagok">
+      <div class="section-heading">
+        <span>01</span>
+        <div>
+          <h2>Tananyagok</h2>
+          <p>Válassz témakört. A kártyákhoz később külön oldalak és letölthető anyagok kapcsolhatók.</p>
+        </div>
+      </div>
+
+      <div class="card-grid">
+        <a class="topic-card" href="#">
+          <div class="icon">&lt;T&gt;</div>
+          <h3>Szövegszerkesztés</h3>
+          <p>Dokumentumok, formázás, képek, táblázatok és stílusok.</p>
+          <span>Megnyitás →</span>
+        </a>
+
+        <a class="topic-card" href="#">
+          <div class="icon">Σ</div>
+          <h3>Táblázatkezelés</h3>
+          <p>Cellák, képletek, függvények, diagramok és adatok.</p>
+          <span>Megnyitás →</span>
+        </a>
+
+        <a class="topic-card" href="#">
+          <div class="icon">▣</div>
+          <h3>Prezentációkészítés</h3>
+          <p>Átlátható diák, képek, animációk és jó előadás.</p>
+          <span>Megnyitás →</span>
+        </a>
+
+        <a class="topic-card" href="#">
+          <div class="icon">CPU</div>
+          <h3>Hardver</h3>
+          <p>A számítógép fő részei, perifériák és adattárolás.</p>
+          <span>Megnyitás →</span>
+        </a>
+
+        <a class="topic-card" href="#">
+          <div class="icon">⌘</div>
+          <h3>Algoritmusok</h3>
+          <p>Logikai lépések, feltételek és programozási alapok.</p>
+          <span>Megnyitás →</span>
+        </a>
+
+        <a class="topic-card" href="#">
+          <div class="icon">🔒</div>
+          <h3>Digitális biztonság</h3>
+          <p>Jelszavak, adathalászat, adatvédelem és tudatos internethasználat.</p>
+          <span>Megnyitás →</span>
+        </a>
+
+        <a class="topic-card featured" href="#">
+          <div class="icon">AI</div>
+          <h3>Mesterséges intelligencia</h3>
+          <p>Mi az MI, mire használható, és hogyan alkalmazzuk felelősen?</p>
+          <span>Megnyitás →</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section alt" id="feladatok">
+      <div class="section-heading">
+        <span>02</span>
+        <div>
+          <h2>Feladatok</h2>
+          <p>Gyakorlás órai munkához, otthoni felkészüléshez vagy számonkérés előtt.</p>
+        </div>
+      </div>
+
+      <div class="resource-list">
+        <a href="#" class="resource">
+          <div class="resource-type">GYAKORLÁS</div>
+          <div><h3>Szövegszerkesztési alapfeladatok</h3><p>Formázás, igazítás, felsorolás, képek.</p></div>
+          <b>→</b>
+        </a>
+        <a href="#" class="resource">
+          <div class="resource-type">GYAKORLÁS</div>
+          <div><h3>Táblázatkezelési gyakorló</h3><p>Alapképletek és egyszerű függvények.</p></div>
+          <b>→</b>
+        </a>
+        <a href="#" class="resource">
+          <div class="resource-type">TESZT</div>
+          <div><h3>Digitális biztonság mini teszt</h3><p>Rövid önellenőrző feladatsor.</p></div>
+          <b>→</b>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="letoltesek">
+      <div class="section-heading">
+        <span>03</span>
+        <div>
+          <h2>Letöltések</h2>
+          <p>Ide kerülhetnek a PDF-ek, Word-, Excel- és egyéb gyakorlófájlok.</p>
+        </div>
+      </div>
+
+      <div class="download-grid">
+        <a href="#" class="download-card">
+          <span class="file-icon">PDF</span>
+          <div><strong>Összefoglaló jegyzet</strong><small>PDF dokumentum</small></div>
+          <span>↓</span>
+        </a>
+        <a href="#" class="download-card">
+          <span class="file-icon">DOCX</span>
+          <div><strong>Szövegszerkesztési feladat</strong><small>Word dokumentum</small></div>
+          <span>↓</span>
+        </a>
+        <a href="#" class="download-card">
+          <span class="file-icon">XLSX</span>
+          <div><strong>Táblázatkezelési gyakorló</strong><small>Excel munkafüzet</small></div>
+          <span>↓</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section alt" id="linkek">
+      <div class="section-heading">
+        <span>04</span>
+        <div>
+          <h2>Hasznos linkek</h2>
+          <p>Gyakran használt oldalak, programok és online eszközök.</p>
+        </div>
+      </div>
+
+      <div class="link-grid">
+        <a href="https://www.office.com/" target="_blank" rel="noopener">Microsoft 365 <span>↗</span></a>
+        <a href="https://www.canva.com/" target="_blank" rel="noopener">Canva <span>↗</span></a>
+        <a href="https://github.com/" target="_blank" rel="noopener">GitHub <span>↗</span></a>
+        <a href="https://chatgpt.com/" target="_blank" rel="noopener">ChatGPT <span>↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong>&lt;/&gt; Digitális kultúra</strong>
+      <p>9. évfolyam • digitális tananyagtár</p>
+    </div>
+    <div class="footer-right">
+      <span>kiss-tar.hu</span>
+      <a href="#top">Vissza az elejére ↑</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
