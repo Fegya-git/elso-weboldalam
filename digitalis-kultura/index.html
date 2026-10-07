@@ -1,225 +1,182 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Digitális kultúra – 9. évfolyam tananyagok, feladatok és letöltések." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Digitális kultúra | 9. évfolyam</title>
-  <link rel="stylesheet" href="stilus.css" />
+  <style>
+    :root{
+      --bg:#07111f; --panel:#0d1c30; --panel2:#112640; --line:rgba(255,255,255,.09);
+      --text:#eef7ff; --muted:#98aec4; --cyan:#5ee7ff; --blue:#7d8fff; --green:#60efb3;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text);
+      background:
+        radial-gradient(circle at 15% 0%,rgba(58,117,255,.16),transparent 32%),
+        radial-gradient(circle at 90% 5%,rgba(60,238,220,.10),transparent 28%),
+        var(--bg);min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1180px;margin:auto;padding:24px}
+    header{
+      display:flex;justify-content:space-between;align-items:center;gap:18px;padding:14px 18px;
+      border:1px solid var(--line);border-radius:18px;background:rgba(5,15,28,.78);
+      position:sticky;top:12px;z-index:10;backdrop-filter:blur(14px);
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:45px;height:45px;border-radius:12px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--cyan),var(--blue));color:#04101c;font-weight:900}
+    .brand strong{display:block}.brand small{color:var(--muted)}
+    .back{padding:9px 12px;border:1px solid var(--line);border-radius:10px;color:#c9d8e8}
+    .hero{padding:70px 0 35px}
+    .eyebrow{color:var(--cyan);font-size:12px;font-weight:900;letter-spacing:.14em}
+    h1{font-size:clamp(48px,7vw,80px);line-height:.98;margin:14px 0 16px;letter-spacing:-.045em}
+    h1 span{background:linear-gradient(90deg,var(--cyan),#a3b5ff);-webkit-background-clip:text;color:transparent}
+    .lead{color:var(--muted);max-width:720px;font-size:18px;line-height:1.7}
+    .toolbar{display:flex;gap:12px;align-items:center;margin:24px 0 10px;flex-wrap:wrap}
+    .search{
+      flex:1;min-width:240px;padding:13px 15px;border-radius:12px;border:1px solid var(--line);
+      background:#091725;color:white;outline:none
+    }
+    .status{font-size:13px;color:var(--muted)}
+    .status.ok{color:var(--green)}
+    .status.err{color:#ff8b8b}
+    .topics{display:grid;gap:18px;padding:28px 0 70px}
+    .topic{
+      border:1px solid var(--line);border-radius:18px;background:rgba(12,28,48,.78);overflow:hidden
+    }
+    .topic-head{padding:18px 20px;display:flex;justify-content:space-between;gap:16px;align-items:center;
+      border-bottom:1px solid var(--line)}
+    .topic-head h2{margin:0;font-size:21px}
+    .count{font-size:12px;color:var(--cyan);background:rgba(94,231,255,.08);
+      border:1px solid rgba(94,231,255,.15);padding:5px 9px;border-radius:999px}
+    .files{display:grid}
+    .file{
+      display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:14px;padding:16px 20px;
+      border-top:1px solid rgba(255,255,255,.05)
+    }
+    .file:first-child{border-top:0}
+    .file:hover{background:rgba(94,231,255,.035)}
+    .filetype{width:48px;height:42px;display:grid;place-items:center;border-radius:10px;
+      background:rgba(125,143,255,.09);color:#cdd6ff;font-size:11px;font-weight:900}
+    .filename{font-weight:750;word-break:break-word}
+    .meta{font-size:12px;color:var(--muted);margin-top:4px}
+    .openbtn{padding:9px 12px;border-radius:10px;background:linear-gradient(135deg,var(--cyan),var(--blue));
+      color:#04101c;font-weight:900;font-size:13px}
+    .empty{padding:18px 20px;color:var(--muted);font-size:14px}
+    .loading{padding:28px;border:1px dashed var(--line);border-radius:16px;color:var(--muted)}
+    footer{border-top:1px solid var(--line);padding:24px 0 10px;color:var(--muted);font-size:13px}
+    @media(max-width:620px){
+      header{align-items:flex-start;flex-direction:column}
+      .file{grid-template-columns:44px 1fr}
+      .openbtn{grid-column:2;width:max-content}
+    }
+  </style>
 </head>
 <body>
-  <div class="bg-grid"></div>
-
-  <header class="topbar">
-    <a class="brand" href="#top" aria-label="Kezdőlap">
-      <span class="brand-mark">&lt;/&gt;</span>
-      <span>
-        <strong>Digitális kultúra</strong>
-        <small>9. évfolyam</small>
-      </span>
-    </a>
-
-    <button class="menu-btn" id="menuBtn" aria-label="Menü megnyitása">☰</button>
-
-    <nav id="mainNav">
-      <a href="#tananyagok">Tananyagok</a>
-      <a href="#feladatok">Feladatok</a>
-      <a href="#letoltesek">Letöltések</a>
-      <a href="#linkek">Hasznos linkek</a>
-    </nav>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="logo">DK</div>
+      <div><strong>Digitális kultúra</strong><small>9. évfolyam</small></div>
+    </div>
+    <a class="back" href="../">← Kiss-Tár főoldal</a>
   </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow">DIGITÁLIS TANANYAGTÁR</div>
-        <h1>Digitális kultúra<br><span>9. évfolyam</span></h1>
-        <p>
-          Tananyagok, gyakorlófeladatok és letölthető fájlok egy helyen.
-          Haladj témakörönként, gyakorolj, és térj vissza bármikor.
-        </p>
+  <section class="hero">
+    <div class="eyebrow">DIGITÁLIS TANANYAGTÁR</div>
+    <h1>Digitális kultúra<br><span>9. évfolyam</span></h1>
+    <p class="lead">A Google Drive tananyagmappáiból automatikusan betöltött dokumentumok és gyakorlófájlok.</p>
+    <div class="toolbar">
+      <input id="search" class="search" type="search" placeholder="Keresés a tananyagok között…">
+      <span id="status" class="status">Tananyagok betöltése…</span>
+    </div>
+  </section>
 
-        <div class="hero-actions">
-          <a class="btn primary" href="#tananyagok">Tananyagok megnyitása</a>
-          <a class="btn ghost" href="#feladatok">Gyakorlás</a>
-        </div>
-
-        <div class="stats">
-          <div><strong>9.</strong><span>évfolyam</span></div>
-          <div><strong>7</strong><span>témakör</span></div>
-          <div><strong>24/7</strong><span>elérhető</span></div>
-        </div>
-      </div>
-
-      <div class="hero-panel" aria-hidden="true">
-        <div class="terminal">
-          <div class="terminal-head">
-            <span></span><span></span><span></span>
-            <em>tananyag@kiss-tar</em>
-          </div>
-          <div class="terminal-body">
-            <p><span class="prompt">$</span> start digitalis-kultura</p>
-            <p class="muted">Betöltés...</p>
-            <p><span class="ok">✓</span> Szövegszerkesztés</p>
-            <p><span class="ok">✓</span> Táblázatkezelés</p>
-            <p><span class="ok">✓</span> Prezentációkészítés</p>
-            <p><span class="ok">✓</span> Digitális biztonság</p>
-            <p><span class="cursor">█</span></p>
-          </div>
-        </div>
-
-        <div class="chip chip-a">HTML</div>
-        <div class="chip chip-b">AI</div>
-        <div class="chip chip-c">Excel</div>
-      </div>
-    </section>
-
-    <section class="section" id="tananyagok">
-      <div class="section-heading">
-        <span>01</span>
-        <div>
-          <h2>Tananyagok</h2>
-          <p>Válassz témakört. A kártyákhoz később külön oldalak és letölthető anyagok kapcsolhatók.</p>
-        </div>
-      </div>
-
-      <div class="card-grid">
-        <a class="topic-card" href="#">
-          <div class="icon">&lt;T&gt;</div>
-          <h3>Szövegszerkesztés</h3>
-          <p>Dokumentumok, formázás, képek, táblázatok és stílusok.</p>
-          <span>Megnyitás →</span>
-        </a>
-
-        <a class="topic-card" href="#">
-          <div class="icon">Σ</div>
-          <h3>Táblázatkezelés</h3>
-          <p>Cellák, képletek, függvények, diagramok és adatok.</p>
-          <span>Megnyitás →</span>
-        </a>
-
-        <a class="topic-card" href="#">
-          <div class="icon">▣</div>
-          <h3>Prezentációkészítés</h3>
-          <p>Átlátható diák, képek, animációk és jó előadás.</p>
-          <span>Megnyitás →</span>
-        </a>
-
-        <a class="topic-card" href="#">
-          <div class="icon">CPU</div>
-          <h3>Hardver</h3>
-          <p>A számítógép fő részei, perifériák és adattárolás.</p>
-          <span>Megnyitás →</span>
-        </a>
-
-        <a class="topic-card" href="#">
-          <div class="icon">⌘</div>
-          <h3>Algoritmusok</h3>
-          <p>Logikai lépések, feltételek és programozási alapok.</p>
-          <span>Megnyitás →</span>
-        </a>
-
-        <a class="topic-card" href="#">
-          <div class="icon">🔒</div>
-          <h3>Digitális biztonság</h3>
-          <p>Jelszavak, adathalászat, adatvédelem és tudatos internethasználat.</p>
-          <span>Megnyitás →</span>
-        </a>
-
-        <a class="topic-card featured" href="#">
-          <div class="icon">AI</div>
-          <h3>Mesterséges intelligencia</h3>
-          <p>Mi az MI, mire használható, és hogyan alkalmazzuk felelősen?</p>
-          <span>Megnyitás →</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="section alt" id="feladatok">
-      <div class="section-heading">
-        <span>02</span>
-        <div>
-          <h2>Feladatok</h2>
-          <p>Gyakorlás órai munkához, otthoni felkészüléshez vagy számonkérés előtt.</p>
-        </div>
-      </div>
-
-      <div class="resource-list">
-        <a href="#" class="resource">
-          <div class="resource-type">GYAKORLÁS</div>
-          <div><h3>Szövegszerkesztési alapfeladatok</h3><p>Formázás, igazítás, felsorolás, képek.</p></div>
-          <b>→</b>
-        </a>
-        <a href="#" class="resource">
-          <div class="resource-type">GYAKORLÁS</div>
-          <div><h3>Táblázatkezelési gyakorló</h3><p>Alapképletek és egyszerű függvények.</p></div>
-          <b>→</b>
-        </a>
-        <a href="#" class="resource">
-          <div class="resource-type">TESZT</div>
-          <div><h3>Digitális biztonság mini teszt</h3><p>Rövid önellenőrző feladatsor.</p></div>
-          <b>→</b>
-        </a>
-      </div>
-    </section>
-
-    <section class="section" id="letoltesek">
-      <div class="section-heading">
-        <span>03</span>
-        <div>
-          <h2>Letöltések</h2>
-          <p>Ide kerülhetnek a PDF-ek, Word-, Excel- és egyéb gyakorlófájlok.</p>
-        </div>
-      </div>
-
-      <div class="download-grid">
-        <a href="#" class="download-card">
-          <span class="file-icon">PDF</span>
-          <div><strong>Összefoglaló jegyzet</strong><small>PDF dokumentum</small></div>
-          <span>↓</span>
-        </a>
-        <a href="#" class="download-card">
-          <span class="file-icon">DOCX</span>
-          <div><strong>Szövegszerkesztési feladat</strong><small>Word dokumentum</small></div>
-          <span>↓</span>
-        </a>
-        <a href="#" class="download-card">
-          <span class="file-icon">XLSX</span>
-          <div><strong>Táblázatkezelési gyakorló</strong><small>Excel munkafüzet</small></div>
-          <span>↓</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="section alt" id="linkek">
-      <div class="section-heading">
-        <span>04</span>
-        <div>
-          <h2>Hasznos linkek</h2>
-          <p>Gyakran használt oldalak, programok és online eszközök.</p>
-        </div>
-      </div>
-
-      <div class="link-grid">
-        <a href="https://www.office.com/" target="_blank" rel="noopener">Microsoft 365 <span>↗</span></a>
-        <a href="https://www.canva.com/" target="_blank" rel="noopener">Canva <span>↗</span></a>
-        <a href="https://github.com/" target="_blank" rel="noopener">GitHub <span>↗</span></a>
-        <a href="https://chatgpt.com/" target="_blank" rel="noopener">ChatGPT <span>↗</span></a>
-      </div>
-    </section>
+  <main id="topics" class="topics">
+    <div class="loading">Kapcsolódás a Google Drive tananyagtárhoz…</div>
   </main>
 
-  <footer>
-    <div>
-      <strong>&lt;/&gt; Digitális kultúra</strong>
-      <p>9. évfolyam • digitális tananyagtár</p>
-    </div>
-    <div class="footer-right">
-      <span>kiss-tar.hu</span>
-      <a href="#top">Vissza az elejére ↑</a>
-    </div>
-  </footer>
+  <footer>Kiss-Tár • kiss-tar.hu • Digitális kultúra 9. évfolyam</footer>
+</div>
 
-  <script src="script.js"></script>
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbzEZslKyyFJzue5OHbYVmkDg4Rdl2mXVPxjrFFQvMz4af5rKaPGe0z31-gHuMBvFZ_Z_g/exec";
+let allData = [];
+
+function formatBytes(bytes) {
+  if (!bytes) return "";
+  const units = ["B","KB","MB","GB"];
+  let i = 0, n = Number(bytes);
+  while (n >= 1024 && i < units.length - 1) { n /= 1024; i++; }
+  return `${n.toFixed(i ? 1 : 0)} ${units[i]}`;
+}
+function typeLabel(mime, name) {
+  const ext = (name.split(".").pop() || "").toUpperCase();
+  if (ext.length <= 5) return ext;
+  if ((mime||"").includes("pdf")) return "PDF";
+  if ((mime||"").includes("word")) return "DOC";
+  if ((mime||"").includes("sheet") || (mime||"").includes("excel")) return "XLS";
+  return "FÁJL";
+}
+function escapeHtml(s="") {
+  return s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));
+}
+function render(data) {
+  const q = document.getElementById("search").value.trim().toLocaleLowerCase("hu");
+  const topics = document.getElementById("topics");
+  let shown = 0;
+
+  const html = data.map(topic => {
+    const files = (topic.fajlok || []).filter(f =>
+      !q || topic.tema.toLocaleLowerCase("hu").includes(q) || f.nev.toLocaleLowerCase("hu").includes(q)
+    );
+    if (q && files.length === 0 && !topic.tema.toLocaleLowerCase("hu").includes(q)) return "";
+
+    shown += files.length;
+    const rows = files.length ? files.map(f => `
+      <div class="file">
+        <div class="filetype">${escapeHtml(typeLabel(f.tipus, f.nev))}</div>
+        <div>
+          <div class="filename">${escapeHtml(f.nev)}</div>
+          <div class="meta">${formatBytes(f.meret)}${f.modositva ? " • módosítva: " + new Date(f.modositva).toLocaleDateString("hu-HU") : ""}</div>
+        </div>
+        <a class="openbtn" href="${f.url}" target="_blank" rel="noopener">Megnyitás ↗</a>
+      </div>
+    `).join("") : `<div class="empty">Ebben a témakörben még nincs feltöltött tananyag.</div>`;
+
+    return `
+      <section class="topic">
+        <div class="topic-head">
+          <h2>${escapeHtml(topic.tema)}</h2>
+          <span class="count">${files.length} fájl</span>
+        </div>
+        <div class="files">${rows}</div>
+      </section>`;
+  }).join("");
+
+  topics.innerHTML = html || `<div class="loading">Nincs a keresésnek megfelelő tananyag.</div>`;
+  document.getElementById("status").textContent = `${data.length} témakör • ${shown} fájl`;
+  document.getElementById("status").className = "status ok";
+}
+
+function kissTarDriveData(data) {
+  allData = Array.isArray(data) ? data : [];
+  render(allData);
+}
+
+// JSONP betöltés
+const apiScript = document.createElement("script");
+apiScript.src = API_URL + "?callback=kissTarDriveData&_=" + Date.now();
+apiScript.onerror = () => {
+  const s = document.getElementById("status");
+  s.textContent = "Nem sikerült betölteni a tananyagokat.";
+  s.className = "status err";
+};
+document.body.appendChild(apiScript);
+
+document.getElementById("search").addEventListener("input", () => render(allData));
+</script>
 </body>
 </html>
