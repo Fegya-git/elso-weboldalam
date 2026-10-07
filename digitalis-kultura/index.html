@@ -29,16 +29,22 @@
       background:linear-gradient(135deg,var(--cyan),var(--blue));color:#04101c;font-weight:900}
     .brand strong{display:block}.brand small{color:var(--muted)}
     .back{padding:9px 12px;border:1px solid var(--line);border-radius:10px;color:#c9d8e8}
-    .hero{padding:70px 0 35px}
+    .hero{padding:46px 0 24px}
     .eyebrow{color:var(--cyan);font-size:12px;font-weight:900;letter-spacing:.14em}
-    h1{font-size:clamp(48px,7vw,80px);line-height:.98;margin:14px 0 16px;letter-spacing:-.045em}
+    h1{font-size:clamp(36px,5vw,58px);line-height:1.02;margin:12px 0 14px;letter-spacing:-.035em}
     h1 span{background:linear-gradient(90deg,var(--cyan),#a3b5ff);-webkit-background-clip:text;color:transparent}
-    .lead{color:var(--muted);max-width:720px;font-size:18px;line-height:1.7}
-    .toolbar{display:flex;gap:12px;align-items:center;margin:24px 0 10px;flex-wrap:wrap}
+    .lead{color:var(--muted);max-width:760px;font-size:16px;line-height:1.6}
+    .toolbar{display:flex;gap:12px;align-items:center;margin:24px 0 14px;flex-wrap:wrap}
     .search{
       flex:1;min-width:240px;padding:13px 15px;border-radius:12px;border:1px solid var(--line);
       background:#091725;color:white;outline:none
     }
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+    .filter-btn{
+      border:1px solid var(--line);background:rgba(255,255,255,.025);color:#c9d8e8;
+      padding:8px 11px;border-radius:999px;cursor:pointer;font-size:12px;font-weight:800
+    }
+    .filter-btn.active{background:rgba(94,231,255,.10);border-color:rgba(94,231,255,.35);color:var(--cyan)}
     .status{font-size:13px;color:var(--muted)}
     .status.ok{color:var(--green)}
     .status.err{color:#ff8b8b}
@@ -53,24 +59,34 @@
       border:1px solid rgba(94,231,255,.15);padding:5px 9px;border-radius:999px}
     .files{display:grid}
     .file{
-      display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:14px;padding:16px 20px;
+      display:grid;grid-template-columns:58px 1fr auto;align-items:center;gap:14px;padding:16px 20px;
       border-top:1px solid rgba(255,255,255,.05)
     }
     .file:first-child{border-top:0}
     .file:hover{background:rgba(94,231,255,.035)}
-    .filetype{width:48px;height:42px;display:grid;place-items:center;border-radius:10px;
-      background:rgba(125,143,255,.09);color:#cdd6ff;font-size:11px;font-weight:900}
+    .filetype{width:54px;height:46px;display:grid;place-items:center;border-radius:11px;
+      background:rgba(125,143,255,.09);color:#cdd6ff;font-size:10px;font-weight:900;
+      border:1px solid rgba(255,255,255,.06)}
+    .filetype.pdf{color:#ffb0b0;background:rgba(255,90,90,.08)}
+    .filetype.doc,.filetype.docx{color:#a8c8ff;background:rgba(80,140,255,.08)}
+    .filetype.xls,.filetype.xlsx{color:#9cf1c2;background:rgba(70,210,140,.08)}
+    .filetype.ppt,.filetype.pptx{color:#ffc79f;background:rgba(255,150,70,.08)}
+    .filetype.img{color:#e5b6ff;background:rgba(180,90,255,.08)}
     .filename{font-weight:750;word-break:break-word}
     .meta{font-size:12px;color:var(--muted);margin-top:4px}
-    .openbtn{padding:9px 12px;border-radius:10px;background:linear-gradient(135deg,var(--cyan),var(--blue));
-      color:#04101c;font-weight:900;font-size:13px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .openbtn,.downloadbtn{
+      padding:9px 12px;border-radius:10px;font-weight:900;font-size:13px;white-space:nowrap
+    }
+    .openbtn{background:linear-gradient(135deg,var(--cyan),var(--blue));color:#04101c}
+    .downloadbtn{border:1px solid var(--line);background:rgba(255,255,255,.03);color:#dce9f6}
     .empty{padding:18px 20px;color:var(--muted);font-size:14px}
     .loading{padding:28px;border:1px dashed var(--line);border-radius:16px;color:var(--muted)}
     footer{border-top:1px solid var(--line);padding:24px 0 10px;color:var(--muted);font-size:13px}
     @media(max-width:620px){
       header{align-items:flex-start;flex-direction:column}
-      .file{grid-template-columns:44px 1fr}
-      .openbtn{grid-column:2;width:max-content}
+      .file{grid-template-columns:50px 1fr}
+      .actions{grid-column:2;justify-content:flex-start}
     }
   </style>
 </head>
@@ -92,6 +108,14 @@
       <input id="search" class="search" type="search" placeholder="Keresés a tananyagok között…">
       <span id="status" class="status">Tananyagok betöltése…</span>
     </div>
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-type="all">Mind</button>
+      <button class="filter-btn" data-type="pdf">PDF</button>
+      <button class="filter-btn" data-type="doc">Word</button>
+      <button class="filter-btn" data-type="xls">Excel</button>
+      <button class="filter-btn" data-type="ppt">PowerPoint</button>
+      <button class="filter-btn" data-type="img">Képek</button>
+    </div>
   </section>
 
   <main id="topics" class="topics">
@@ -112,39 +136,60 @@ function formatBytes(bytes) {
   while (n >= 1024 && i < units.length - 1) { n /= 1024; i++; }
   return `${n.toFixed(i ? 1 : 0)} ${units[i]}`;
 }
+function getFileKind(mime="", name="") {
+  const ext = (name.split(".").pop() || "").toLowerCase();
+  if (ext === "pdf" || mime.includes("pdf")) return "pdf";
+  if (["doc","docx"].includes(ext) || mime.includes("word")) return "doc";
+  if (["xls","xlsx","csv"].includes(ext) || mime.includes("sheet") || mime.includes("excel")) return "xls";
+  if (["ppt","pptx"].includes(ext) || mime.includes("presentation") || mime.includes("powerpoint")) return "ppt";
+  if (["png","jpg","jpeg","gif","webp","svg"].includes(ext) || mime.startsWith("image/")) return "img";
+  return "other";
+}
 function typeLabel(mime, name) {
-  const ext = (name.split(".").pop() || "").toUpperCase();
-  if (ext.length <= 5) return ext;
-  if ((mime||"").includes("pdf")) return "PDF";
-  if ((mime||"").includes("word")) return "DOC";
-  if ((mime||"").includes("sheet") || (mime||"").includes("excel")) return "XLS";
-  return "FÁJL";
+  const kind = getFileKind(mime, name);
+  const map = {pdf:"PDF",doc:"WORD",xls:"EXCEL",ppt:"PPT",img:"KÉP",other:"FÁJL"};
+  return map[kind];
+}
+function makeDownloadUrl(url="") {
+  const m = url.match(/\/d\/([^/]+)/);
+  return m ? `https://drive.google.com/uc?export=download&id=${m[1]}` : url;
 }
 function escapeHtml(s="") {
   return s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));
 }
+let activeType = "all";
+
 function render(data) {
   const q = document.getElementById("search").value.trim().toLocaleLowerCase("hu");
   const topics = document.getElementById("topics");
   let shown = 0;
 
   const html = data.map(topic => {
-    const files = (topic.fajlok || []).filter(f =>
-      !q || topic.tema.toLocaleLowerCase("hu").includes(q) || f.nev.toLocaleLowerCase("hu").includes(q)
-    );
-    if (q && files.length === 0 && !topic.tema.toLocaleLowerCase("hu").includes(q)) return "";
+    const files = (topic.fajlok || []).filter(f => {
+      const kind = getFileKind(f.tipus || "", f.nev || "");
+      const matchesSearch = !q || topic.tema.toLocaleLowerCase("hu").includes(q) || f.nev.toLocaleLowerCase("hu").includes(q);
+      const matchesType = activeType === "all" || kind === activeType;
+      return matchesSearch && matchesType;
+    });
+
+    if ((q || activeType !== "all") && files.length === 0) return "";
 
     shown += files.length;
-    const rows = files.length ? files.map(f => `
+    const rows = files.length ? files.map(f => {
+      const kind = getFileKind(f.tipus || "", f.nev || "");
+      return `
       <div class="file">
-        <div class="filetype">${escapeHtml(typeLabel(f.tipus, f.nev))}</div>
+        <div class="filetype ${kind}">${escapeHtml(typeLabel(f.tipus, f.nev))}</div>
         <div>
           <div class="filename">${escapeHtml(f.nev)}</div>
           <div class="meta">${formatBytes(f.meret)}${f.modositva ? " • módosítva: " + new Date(f.modositva).toLocaleDateString("hu-HU") : ""}</div>
         </div>
-        <a class="openbtn" href="${f.url}" target="_blank" rel="noopener">Megnyitás ↗</a>
-      </div>
-    `).join("") : `<div class="empty">Ebben a témakörben még nincs feltöltött tananyag.</div>`;
+        <div class="actions">
+          <a class="openbtn" href="${f.url}" target="_blank" rel="noopener">Megnyitás ↗</a>
+          <a class="downloadbtn" href="${makeDownloadUrl(f.url)}" target="_blank" rel="noopener">Letöltés ↓</a>
+        </div>
+      </div>`;
+    }).join("") : `<div class="empty">Ebben a témakörben még nincs feltöltött tananyag.</div>`;
 
     return `
       <section class="topic">
@@ -156,7 +201,7 @@ function render(data) {
       </section>`;
   }).join("");
 
-  topics.innerHTML = html || `<div class="loading">Nincs a keresésnek megfelelő tananyag.</div>`;
+  topics.innerHTML = html || `<div class="loading">Nincs a keresésnek vagy a szűrőnek megfelelő tananyag.</div>`;
   document.getElementById("status").textContent = `${data.length} témakör • ${shown} fájl`;
   document.getElementById("status").className = "status ok";
 }
@@ -177,6 +222,15 @@ apiScript.onerror = () => {
 document.body.appendChild(apiScript);
 
 document.getElementById("search").addEventListener("input", () => render(allData));
+
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeType = btn.dataset.type;
+    render(allData);
+  });
+});
 </script>
 </body>
 </html>
