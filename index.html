@@ -26,11 +26,11 @@
       background-size:40px 40px;
       mask-image:linear-gradient(to bottom,black,transparent 90%);
     }
-    .wrap{max-width:1180px;margin:0 auto;padding:28px 24px 70px}
+    .wrap{max-width:1180px;margin:0 auto;padding:104px 24px 70px}
     header{
       display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 18px;
       border:1px solid var(--line);border-radius:18px;background:rgba(5,15,28,.72);
-      backdrop-filter:blur(14px);position:sticky;top:14px;z-index:10;
+      backdrop-filter:blur(14px);position:fixed;top:14px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:1180px;z-index:100;
     }
     .brand{display:flex;align-items:center;gap:12px}
     .logo{
@@ -42,7 +42,7 @@
     nav{display:flex;gap:8px;flex-wrap:wrap}
     nav a{color:#c9d8e8;text-decoration:none;padding:9px 11px;border-radius:10px;font-size:14px}
     nav a:hover{background:rgba(255,255,255,.06);color:white}
-    .hero{min-height:46vh;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding:48px 0 34px}
+    .hero{min-height:46vh;display:block;padding:36px 0 34px}
     .eyebrow{
       display:inline-block;padding:6px 10px;border:1px solid rgba(94,231,255,.3);border-radius:999px;
       color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:.14em;
@@ -53,7 +53,26 @@
       -webkit-background-clip:text;background-clip:text;color:transparent;
     }
     .lead{max-width:650px;color:var(--muted);font-size:16px;line-height:1.65}
-    .hero-card{
+        .hero-side{display:flex;flex-direction:column;gap:10px;align-self:start;position:fixed;top:92px;right:max(18px, calc((100vw - 1180px)/2 + 18px));width:250px;z-index:90}
+    .hero, .section, footer{margin-right:280px}
+    .quick-card{
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(5,15,28,.82);
+      padding:10px;
+      box-shadow:0 14px 36px rgba(0,0,0,.18)
+    }
+    .quick-card-title{
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--cyan);
+      margin:1px 3px 7px
+    }
+    .top-links{margin:0;max-width:none;min-width:0}
+    .top-links a{padding:8px 10px;font-size:12px;border-radius:10px}
+.hero-card{
       border:1px solid var(--line);border-radius:22px;
       background:linear-gradient(180deg,rgba(20,42,69,.9),rgba(7,20,35,.9));
       padding:24px;box-shadow:0 24px 60px rgba(0,0,0,.28);
@@ -70,9 +89,6 @@
     .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:24px}
     .section h2{font-size:34px;margin:0}
     .section p{color:var(--muted);margin:6px 0 0}
-    .quick-section{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start}
-    .quick-copy h2{font-size:34px;margin:0}
-    .quick-copy p{color:var(--muted);margin:6px 0 0;max-width:520px}
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     .card{
       min-height:220px;display:flex;flex-direction:column;padding:22px;border:1px solid var(--line);
@@ -106,9 +122,12 @@
     }
     footer strong{color:white}
     @media(max-width:900px){
-      .hero{grid-template-columns:1fr;padding-top:42px}
+      header{position:sticky;top:8px;left:auto;transform:none;width:auto;max-width:none}
+      .wrap{padding-top:28px}
+      .hero-side{position:static;width:auto}
+      .hero, .section, footer{margin-right:0}
+      .hero{grid-template-columns:1fr;padding-top:30px}
       .grid{grid-template-columns:repeat(2,1fr)}
-      .quick-section{grid-template-columns:1fr}
       .quick{max-width:none;margin-left:0}
     }
     @media(max-width:620px){
@@ -147,16 +166,20 @@
         </p>
       </div>
 
-      <div class="hero-card">
-        <div class="terminal">
-          <div class="bar"><span></span><span></span><span></span></div>
-          <p><span class="prompt">$</span> kiss-tar status</p>
-          <p class="muted">Tartalmak ellenőrzése...</p>
-          <p><span class="ok">✓</span> Digitális kultúra – elérhető</p>
-          <p class="muted">• Informatika – hamarosan</p>
-          <p class="muted">• Matematika – hamarosan</p>
-          <p><span class="ok">✓</span> Folyamatos frissítés</p>
+      <div class="hero-side">
+        <div class="quick-card">
+          <div class="quick-card-title">Gyorslinkek</div>
+          <div class="quick top-links">
+            <a href="https://www.office.com/" target="_blank" rel="noopener">Microsoft 365 <span>↗</span></a>
+            <a href="https://www.canva.com/" target="_blank" rel="noopener">Canva <span>↗</span></a>
+            <a href="https://github.com/" target="_blank" rel="noopener">GitHub <span>↗</span></a>
+            <a href="https://kv-rakoczi.www.intezmeny.edir.hu/" target="_blank" rel="noopener">Iskola honlapja <span>↗</span></a>
+            <a href="https://kvszc-rakoczy.e-kreta.hu/" target="_blank" rel="noopener">KRÉTA <span>↗</span></a>
+            <a href="https://kvszc.edclub.com/" target="_blank" rel="noopener">EDClub <span>↗</span></a>
+          </div>
         </div>
+
+
       </div>
     </section>
 
@@ -189,24 +212,6 @@
           <h3>Matematika</h3>
           <p>Összefoglalók, gyakorlófeladatok és segédanyagok.</p>
           <span class="tag">Hamarosan</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="gyorslinkek">
-      <div class="quick-section">
-        <div class="quick-copy">
-          <h2>Gyorslinkek</h2>
-          <p>Gyakran használt digitális eszközök és szolgáltatások.</p>
-        </div>
-
-        <div class="quick">
-        <a href="https://www.office.com/" target="_blank" rel="noopener">Microsoft 365 <span>↗</span></a>
-        <a href="https://www.canva.com/" target="_blank" rel="noopener">Canva <span>↗</span></a>
-        <a href="https://github.com/" target="_blank" rel="noopener">GitHub <span>↗</span></a>
-        <a href="https://kv-rakoczi.www.intezmeny.edir.hu/" target="_blank" rel="noopener">Iskola honlapja <span>↗</span></a>
-        <a href="https://kvszc-rakoczy.e-kreta.hu/" target="_blank" rel="noopener">KRÉTA <span>↗</span></a>
-        <a href="https://kvszc.edclub.com/" target="_blank" rel="noopener">EDClub <span>↗</span></a>
         </div>
       </div>
     </section>
