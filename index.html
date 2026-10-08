@@ -53,25 +53,12 @@
       -webkit-background-clip:text;background-clip:text;color:transparent;
     }
     .lead{max-width:650px;color:var(--muted);font-size:16px;line-height:1.65}
-        .hero-side{display:flex;flex-direction:column;gap:10px;align-self:start;position:fixed;top:92px;right:max(18px, calc((100vw - 1180px)/2 + 18px));width:250px;z-index:90}
-    .hero, .section, footer{margin-right:280px}
-    .quick-card{
-      border:1px solid var(--line);
-      border-radius:14px;
-      background:rgba(5,15,28,.82);
-      padding:10px;
-      box-shadow:0 14px 36px rgba(0,0,0,.18)
-    }
-    .quick-card-title{
-      font-size:11px;
-      font-weight:900;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:var(--cyan);
-      margin:1px 3px 7px
-    }
+        .hero-side{display:flex;flex-direction:column;gap:8px;align-self:start;position:fixed;top:92px;right:16px;width:180px;max-width:calc(100vw - 32px);z-index:90}
+    .hero, .section, footer{margin-right:205px}
+    .quick-card{border:1px solid var(--line);border-radius:12px;background:rgba(5,15,28,.86);padding:8px;box-shadow:0 12px 30px rgba(0,0,0,.18);width:100%;max-width:100%;overflow:hidden;box-sizing:border-box}
+    .quick-card-title{font-size:10px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;color:var(--cyan);margin:1px 2px 6px}
     .top-links{margin:0;max-width:none;min-width:0}
-    .top-links a{padding:8px 10px;font-size:12px;border-radius:10px}
+    .top-links a{width:100%;max-width:100%;padding:6px 7px;font-size:10px;border-radius:8px;min-width:0;overflow:hidden;box-sizing:border-box}
 .hero-card{
       border:1px solid var(--line);border-radius:22px;
       background:linear-gradient(180deg,rgba(20,42,69,.9),rgba(7,20,35,.9));
@@ -110,17 +97,28 @@
       display:inline-block;width:max-content;margin-top:10px;padding:4px 8px;border-radius:999px;
       background:rgba(255,255,255,.05);color:#b9c7d5;font-size:11px;letter-spacing:.05em;text-transform:uppercase;
     }
-    .quick{margin-top:0;display:grid;grid-template-columns:1fr;gap:10px;min-width:280px;max-width:360px;margin-left:auto}
+    .quick{margin-top:0;display:grid;grid-template-columns:1fr;gap:10px;min-width:0;max-width:100%;margin-left:auto}
     .quick a{
-      display:flex;justify-content:space-between;gap:12px;padding:16px 18px;border:1px solid var(--line);
+      display:flex;justify-content:space-between;align-items:center;gap:8px;padding:16px 18px;border:1px solid var(--line);min-width:0;max-width:100%;overflow:hidden;box-sizing:border-box;
       border-radius:14px;background:rgba(255,255,255,.025);color:white;text-decoration:none;font-weight:700;
     }
     .quick a:hover{border-color:rgba(94,231,255,.35)}
+    .quick a span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .quick a span:last-child{flex:0 0 auto}
     footer{
       margin-top:70px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);
       display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
     }
     footer strong{color:white}
+    
+    @media(max-width:1050px){
+      header{position:sticky;top:8px;left:auto;transform:none;width:auto;max-width:none}
+      .wrap{padding-top:28px}
+      .hero-side{position:static;width:auto;max-width:none;margin:0 0 18px}
+      .hero, .section, footer{margin-right:0}
+      .quick-card{max-width:420px}
+    }
+
     @media(max-width:900px){
       header{position:sticky;top:8px;left:auto;transform:none;width:auto;max-width:none}
       .wrap{padding-top:28px}
@@ -170,12 +168,12 @@
         <div class="quick-card">
           <div class="quick-card-title">Gyorslinkek</div>
           <div class="quick top-links">
-            <a href="https://www.office.com/" target="_blank" rel="noopener">Microsoft 365 <span>↗</span></a>
-            <a href="https://www.canva.com/" target="_blank" rel="noopener">Canva <span>↗</span></a>
-            <a href="https://github.com/" target="_blank" rel="noopener">GitHub <span>↗</span></a>
-            <a href="https://kv-rakoczi.www.intezmeny.edir.hu/" target="_blank" rel="noopener">Iskola honlapja <span>↗</span></a>
-            <a href="https://kvszc-rakoczy.e-kreta.hu/" target="_blank" rel="noopener">KRÉTA <span>↗</span></a>
-            <a href="https://kvszc.edclub.com/" target="_blank" rel="noopener">EDClub <span>↗</span></a>
+            <a href="https://www.office.com/" target="_blank" rel="noopener"><span>Microsoft 365</span><span>↗</span></a>
+            <a href="https://www.canva.com/" target="_blank" rel="noopener"><span>Canva</span><span>↗</span></a>
+            <a href="https://github.com/" target="_blank" rel="noopener"><span>GitHub</span><span>↗</span></a>
+            <a href="https://kv-rakoczi.www.intezmeny.edir.hu/" target="_blank" rel="noopener"><span>Iskola honlapja</span><span>↗</span></a>
+            <a href="https://kvszc-rakoczy.e-kreta.hu/" target="_blank" rel="noopener"><span>KRÉTA</span><span>↗</span></a>
+            <a href="https://kvszc.edclub.com/" target="_blank" rel="noopener"><span>EDClub</span><span>↗</span></a>
           </div>
         </div>
 
