@@ -135,7 +135,59 @@
       .grid{grid-template-columns:1fr}
       .wrap{padding-left:16px;padding-right:16px}
     }
-  </style>
+  
+    /* Gyorslinkek: a gombok mindig a fekete kereten BELÜL maradnak */
+    .hero-side{
+      width:190px;
+      right:16px;
+    }
+    .quick-card{
+      width:190px;
+      max-width:190px;
+      padding:8px;
+      overflow:hidden;
+      box-sizing:border-box;
+    }
+    .quick-card .top-links{
+      width:100%;
+      max-width:100%;
+      min-width:0;
+      margin:0;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .quick-card .top-links a{
+      width:100%;
+      max-width:100%;
+      min-width:0;
+      margin:0;
+      padding:7px 8px;
+      box-sizing:border-box;
+      border-radius:8px;
+      font-size:10px;
+      overflow:hidden;
+    }
+    .quick-card .top-links a span:first-child{
+      min-width:0;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .quick-card .top-links a span:last-child{
+      flex:0 0 auto;
+      margin-left:6px;
+    }
+
+    @media(max-width:1050px){
+      .hero-side,
+      .quick-card{
+        width:auto;
+        max-width:420px;
+      }
+    }
+
+</style>
 </head>
 <body>
   <div class="wrap">
