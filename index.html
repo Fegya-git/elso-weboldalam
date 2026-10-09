@@ -14,19 +14,10 @@
     html{scroll-behavior:smooth}
     body{
       margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text);
-      background:
-        radial-gradient(circle at 10% 0%, rgba(64,120,255,.18), transparent 30%),
-        radial-gradient(circle at 90% 10%, rgba(70,240,220,.12), transparent 28%),var(--bg);
+      background:transparent;
       min-height:100vh;
     }
-    body:before{
-      content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;
-      background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
-                       linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
-      background-size:40px 40px;
-      mask-image:linear-gradient(to bottom,black,transparent 90%);
-    }
-    .wrap{max-width:1180px;margin:0 auto;padding:104px 24px 70px}
+    .wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:104px 24px 70px}
     header{
       display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 18px;
       border:1px solid var(--line);border-radius:18px;background:rgba(5,15,28,.72);
@@ -187,9 +178,121 @@
       }
     }
 
+
+    /* Finom, interaktív háttér */
+    .animated-bg{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      overflow:hidden;
+      pointer-events:none;
+      background:#07111f;
+    }
+
+    .bg-grid-move{
+      position:absolute;
+      inset:-80px;
+      opacity:.42;
+      background-image:
+        linear-gradient(rgba(94,231,255,.11) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(94,231,255,.11) 1px, transparent 1px);
+      background-size:38px 38px;
+      animation:gridDrift 24s linear infinite;
+      mask-image:linear-gradient(to bottom, black 0%, rgba(0,0,0,.85) 55%, transparent 100%);
+    }
+
+    .bg-glow{
+      position:absolute;
+      width:520px;
+      height:520px;
+      border-radius:50%;
+      filter:blur(72px);
+      opacity:.32;
+      will-change:transform;
+    }
+
+    .glow-1{
+      left:-140px;
+      top:80px;
+      background:rgba(50,135,255,.78);
+      animation:glowFloat1 20s ease-in-out infinite alternate;
+    }
+
+    .glow-2{
+      right:-170px;
+      top:240px;
+      background:rgba(55,235,220,.66);
+      animation:glowFloat2 24s ease-in-out infinite alternate;
+    }
+
+    .bg-particles{
+      position:absolute;
+      inset:0;
+    }
+
+    .bg-particle{
+      position:absolute;
+      width:3px;
+      height:3px;
+      border-radius:50%;
+      background:rgba(160,225,255,.68);
+      box-shadow:0 0 10px rgba(100,210,255,.34);
+      animation:particleFloat var(--dur) ease-in-out infinite alternate;
+      animation-delay:var(--delay);
+    }
+
+    @keyframes gridDrift{
+      from{transform:translate3d(0,0,0)}
+      to{transform:translate3d(42px,42px,0)}
+    }
+
+    @keyframes glowFloat1{
+      from{transform:translate3d(0,0,0) scale(1)}
+      to{transform:translate3d(150px,80px,0) scale(1.12)}
+    }
+
+    @keyframes glowFloat2{
+      from{transform:translate3d(0,0,0) scale(1)}
+      to{transform:translate3d(-130px,-90px,0) scale(1.08)}
+    }
+
+    
+    .glow-3{
+      left:42%;
+      bottom:-220px;
+      background:rgba(105,95,255,.48);
+      opacity:.20;
+      animation:glowFloat3 28s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowFloat3{
+      from{transform:translate3d(-40px,0,0) scale(.95)}
+      to{transform:translate3d(70px,-90px,0) scale(1.10)}
+    }
+
+    @keyframes particleFloat{
+      from{transform:translate3d(0,0,0);opacity:.18}
+      to{transform:translate3d(var(--dx),var(--dy),0);opacity:.48}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .bg-grid-move,
+      .bg-glow,
+      .bg-particle{
+        animation:none !important;
+      }
+    }
+
 </style>
 </head>
 <body>
+  <div class="animated-bg" aria-hidden="true">
+    <div class="bg-grid-move"></div>
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+    <div class="bg-glow glow-3"></div>
+    <div class="bg-particles" id="bgParticles"></div>
+  </div>
   <div class="wrap">
     <header>
       <div class="brand">
@@ -274,5 +377,56 @@
       <div>kiss-tar.hu</div>
     </footer>
   </div>
+
+<script>
+(() => {
+  const layer = document.getElementById("bgParticles");
+  if (!layer) return;
+
+  const reduceMotion = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const count = reduceMotion ? 12 : 30;
+
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement("span");
+    p.className = "bg-particle";
+
+    const left = (7 + (i * 37) % 88);
+    const top = (8 + (i * 53) % 84);
+    const dx = ((i % 2 ? 1 : -1) * (18 + (i * 11) % 42));
+    const dy = ((i % 3 ? -1 : 1) * (16 + (i * 7) % 36));
+    const dur = 8 + (i % 7) * 1.7;
+    const delay = -(i % 9) * 1.2;
+
+    p.style.left = left + "%";
+    p.style.top = top + "%";
+    p.style.setProperty("--dx", dx + "px");
+    p.style.setProperty("--dy", dy + "px");
+    p.style.setProperty("--dur", dur + "s");
+    p.style.setProperty("--delay", delay + "s");
+
+    layer.appendChild(p);
+  }
+
+  if (!reduceMotion && window.matchMedia("(pointer:fine)").matches) {
+    let targetX = 0, targetY = 0, x = 0, y = 0;
+
+    window.addEventListener("mousemove", (e) => {
+      targetX = (e.clientX / window.innerWidth - 0.5) * 16;
+      targetY = (e.clientY / window.innerHeight - 0.5) * 12;
+    }, { passive: true });
+
+    const tick = () => {
+      x += (targetX - x) * 0.04;
+      y += (targetY - y) * 0.04;
+      layer.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+})();
+</script>
+
 </body>
 </html>
